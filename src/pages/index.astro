@@ -6,48 +6,50 @@ import Base from '../layouts/Base.astro';
   <section class="hero">
     <h1>Work Forest</h1>
     <p class="tagline">A pattern for parallel AI-assisted development</p>
-    <p class="note">Not a tool—just ideas you can use with git and any AI agent.</p>
+    <p class="note">Not a tool—just how I'm working right now. Figured I'd write it down.</p>
   </section>
 
-  <section class="idea">
-    <h2>The Idea</h2>
-    <p>Instead of one agent working on one thing, create multiple worktrees and let agents work in parallel:</p>
-    <pre><code>project/              # main branch (read-only)
-project-feature-a/    # agent 1 works here
-project-feature-b/    # agent 2 works here
-project-bugfix/       # agent 3 works here</code></pre>
-    <p>Each worktree is isolated. No merge conflicts during development. Integrate when ready.</p>
-  </section>
-
-  <section class="clusters">
-    <h2>Work Clusters</h2>
-    <p>Split big tasks into semantic pieces. Just ask:</p>
-    <blockquote>"Build auth. Backend, frontend, database. Work in parallel, then integrate."</blockquote>
-    <p>Claude spawns sub-agents for each cluster, then merges everything.</p>
+  <section class="structure">
+    <h2>The Structure</h2>
+    <p>I have a <code>~/projects/</code> folder. Inside it, work-in-progress lives alongside base repos:</p>
+    <pre><code>~/projects/
+├── site-a/                 # base repo (main branch)
+├── site-a-add-auth/        # feature branch as folder
+├── site-a-fix-nav/         # another feature
+├── lib-b/                  # base repo
+├── lib-b-extract-theme/    # extracting shared code
+└── plans/                  # planning docs (private or public)</code></pre>
+    <p>Each folder can be a git worktree, a clone, or just a regular checkout. The pattern doesn't require specific tooling.</p>
   </section>
 
   <section class="plans">
     <h2>Planning Documents</h2>
-    <p>Plans live in files with unique IDs. Context survives session resets:</p>
+    <p>Plans live in files with short unique IDs. Context survives session resets:</p>
     <pre><code>plans/
 ├── 3el7f-auth-refactor.md
 ├── 9xk2m-api-redesign.md
 └── w7bn4-mobile-support.md</code></pre>
-    <p>The GUID prefix makes plans greppable across your entire workspace. New sessions read the plan file and continue where you left off.</p>
+    <p>The ID prefix makes plans greppable across your entire workspace. New sessions read the plan and continue where you left off. Plans can be private, public, or mixed.</p>
+  </section>
+
+  <section class="clusters">
+    <h2>Work Clusters</h2>
+    <p>When a task gets big, split it into semantic pieces:</p>
+    <blockquote>"Build auth. Backend, frontend, database. Work in parallel, then integrate."</blockquote>
+    <p>AI agents can spawn sub-agents for each piece, working in separate folders, then merge everything.</p>
   </section>
 
   <section class="stacked">
     <h2>Stacked PRs</h2>
-    <p>Clean commits, easy reviews:</p>
+    <p>Clean commits, easier reviews:</p>
     <pre><code>main
 └── refactor-auth     # PR 1: cleanup only
     └── add-oauth     # PR 2: feature on clean code</code></pre>
-    <p>The pattern handles the complexity. You work at the intent level.</p>
   </section>
 
   <section class="tradeoffs">
     <h2>Trade-offs</h2>
-    <p>This isn't magic. Parallel work means integration overhead. Some work may be redundant. You still decide how to split tasks. But you gain higher-level thinking and faster iteration.</p>
+    <p>This isn't magic. Parallel work means integration overhead. Some work may be redundant. You decide how to split tasks. But it helps me think at a higher level and iterate faster.</p>
   </section>
 
   <section class="cta">
