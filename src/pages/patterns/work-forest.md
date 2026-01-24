@@ -86,9 +86,43 @@ git -C project worktree prune
 git submodule deinit project-feature-a
 ```
 
+## Semantic Commits and Stacked PRs
+
+Work Forest makes [semantic commits](https://www.conventionalcommits.org/) practical.
+
+**The problem with mixed PRs:** You're adding a feature but realize the code needs refactoring first. So you refactor and add the feature in one PR. The tests change too. Now reviewers can't tell: did the refactor break something, or is that the new feature? More changes = more places for bugs to hide.
+
+**The solution:** Split it up. Refactor in one PR. Feature in a stacked PR on top.
+
+```
+main
+└── refactor-auth (PR #1: just cleanup, tests shouldn't change)
+    └── add-oauth (PR #2: the actual feature, built on clean code)
+```
+
+**The objection:** "Stacked PRs are complicated to manage."
+
+**With Work Forest:** Just ask for it.
+
+> "Refactor the auth module first, then add OAuth in a stacked PR. Work in separate worktrees."
+
+The pattern handles the complexity. You work at the intent level.
+
+## Trade-offs
+
+This isn't magic. Real constraints remain:
+
+- **Work can get lost.** Agents working in parallel may duplicate effort or make incompatible decisions. The integration phase catches most of this, but not all.
+- **You still decide granularity.** How big should each worktree's task be? When to commit? These are judgment calls.
+- **Integration takes effort.** Merge conflicts happen. Type mismatches happen. Someone (human or agent) resolves them.
+- **Not everything parallelizes.** Tightly coupled code can't be split. Sequential dependencies are sequential.
+
+The pattern doesn't eliminate complexity—it gives you tools to manage it.
+
 ## When to Use
 
 - Multiple independent features in development
 - Large refactors that can be split into pieces
 - Bug triage with parallel investigation
+- Stacked PRs for clean, reviewable changes
 - Any scenario where you'd otherwise wait for one task before starting another

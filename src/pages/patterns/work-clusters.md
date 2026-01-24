@@ -11,10 +11,17 @@ Complex tasks have semantically cohesive pieces that could be developed in isola
 
 ## Solution
 
-Identify **semantic clusters**—cohesive groups of related functionality. Spawn agents to work on each cluster in isolation. Then hand off to an **integration agent** that merges all changes and resolves conflicts.
+Just ask Claude to do it. Plain English works:
+
+> "Build an auth system. Split it into backend, frontend, and database clusters. Work on each in parallel, then integrate."
+
+That's it. Claude will:
+1. Create worktrees for each cluster
+2. Spawn sub-agents to work in parallel
+3. Merge everything and resolve conflicts
 
 ```
-Orchestrator: "Build auth system"
+You: "Build auth. Backend, frontend, database. Parallel."
 │
 ├── Cluster 1: Backend (auth-api/)
 │   └── Agent: API routes, JWT, middleware
@@ -53,145 +60,79 @@ You're trading some efficiency for the ability to work at higher abstraction lev
 
 ## How It Works
 
-### 1. Identify Semantic Clusters
+You don't need to manually orchestrate anything. Just describe what you want:
 
-Look for cohesive functionality that can be isolated:
+### Plain English Examples
 
-```markdown
-# plans/auth-system.md
+**Building a feature:**
+> "Add user authentication. Split the work into API, UI, and database. Use parallel agents, then merge everything together."
 
-## Clusters
+**Refactoring across layers:**
+> "Extract the payment logic into a service. Have one agent handle the backend, another the frontend, another the tests. Work in parallel."
 
-1. **Backend Cluster** (auth-api/)
-   - API routes: /login, /register, /me
-   - JWT token handling
-   - Auth middleware
-   - Cohesive because: all server-side auth logic
+**Investigating a bug:**
+> "This is slow. Check the database queries, the API endpoints, and the frontend bundle size. Look at all three in parallel and tell me what you find."
 
-2. **Frontend Cluster** (auth-ui/)
-   - LoginForm, RegisterForm components
-   - AuthProvider context
-   - useAuth hook
-   - Cohesive because: all client-side auth UI
+**Cross-repo library extraction:**
+> "These three sites all have the same nav component. Extract it into a shared package. One agent makes the library, the others update each site to use it."
 
-3. **Data Cluster** (auth-db/)
-   - User table schema
-   - Password hashing
-   - Session storage
-   - Cohesive because: all persistence concerns
-```
+### What Claude Does
 
-### 2. Create Isolated Worktrees
+When you ask for parallel work, Claude:
 
-Each cluster gets its own worktree:
+1. **Creates worktrees** for isolation
+2. **Spawns sub-agents** to work on each cluster
+3. **Waits for completion** of all parallel work
+4. **Integrates** by merging branches and resolving conflicts
+5. **Verifies** the combined result works
+
+You work at the task level. Claude handles the orchestration.
+
+### Manual Control (Optional)
+
+If you want explicit control, you can still script it:
 
 ```bash
 git worktree add ../auth-api -b auth-api
 git worktree add ../auth-ui -b auth-ui
-git worktree add ../auth-db -b auth-db
-```
 
-### 3. Spawn Cluster Agents
-
-Each agent works in isolation on their cluster:
-
-```bash
-# Spawn in parallel
-claude "Implement backend auth cluster per plans/auth-system.md" --cwd auth-api/ &
-claude "Implement frontend auth cluster per plans/auth-system.md" --cwd auth-ui/ &
-claude "Implement data auth cluster per plans/auth-system.md" --cwd auth-db/ &
+claude "Implement the API" --cwd auth-api/ &
+claude "Implement the UI" --cwd auth-ui/ &
 wait
+
+claude "Merge auth-api and auth-ui, resolve conflicts, verify"
 ```
 
-Agents don't communicate directly. They follow the interface contract in the plan.
+But usually you don't need to. Just describe the clusters and ask for parallel work.
 
-### 4. Integration Phase
+## Keeping Clusters in Sync
 
-Once cluster agents complete, spawn an integration agent:
+Clusters work in isolation, so you need some way for them to agree on interfaces. Options:
 
-```bash
-claude "Integrate auth clusters: merge auth-api, auth-ui, auth-db branches.
-        Resolve any conflicts. Verify types align. Run tests."
-```
+**Let Claude figure it out** - The integration agent sees all the code and fixes mismatches. Works for small projects.
 
-The integration agent:
-- Merges branches into main
-- Resolves conflicts (type mismatches, naming inconsistencies)
-- Verifies the integrated system works
-- Documents any decisions made during integration
+**Describe the interface in your prompt:**
+> "Backend returns `{ token, user }`. Frontend expects a `login(email, password)` function that stores the token."
 
-## Interface Contracts
-
-Define contracts before spawning clusters:
-
+**Create a shared types file first:**
 ```typescript
-// contracts/auth.ts (committed before spawning)
-
-// Backend provides:
-interface AuthAPI {
-  'POST /login': { body: LoginRequest; response: AuthResponse }
-  'POST /register': { body: RegisterRequest; response: AuthResponse }
-  'GET /me': { response: User }
-}
-
-// Frontend expects:
-interface AuthContext {
-  user: User | null
-  login: (email: string, password: string) => Promise<void>
-  logout: () => void
-}
-
-// Shared types:
+// types/auth.ts (commit before spawning clusters)
 interface User { id: string; email: string }
 interface AuthResponse { token: string; user: User }
 ```
 
-Cluster agents implement against the contract. The integration agent verifies alignment.
+The integration agent resolves any drift between what clusters produce and what they expect.
 
-## Example: Feature Development
+## Examples
 
-```
-Feature: Shopping Cart
+**Shopping cart feature:**
+> "Build a shopping cart. API handles validation and checkout. UI has the drawer and item components. State management handles persistence and optimistic updates. Work in parallel, merge when done."
 
-Cluster 1: Cart API (cart-api/)
-├── Routes: add, remove, update, checkout
-├── Cart validation logic
-└── Inventory checks
+**Performance investigation:**
+> "The app is slow. Check the backend queries, the frontend bundle, and the database indexes. All three in parallel. Then give me a prioritized list of fixes."
 
-Cluster 2: Cart UI (cart-ui/)
-├── CartDrawer component
-├── CartItem component
-├── useCart hook
-
-Cluster 3: Cart State (cart-state/)
-├── Cart context
-├── Local storage persistence
-└── Optimistic updates
-
-Integration Agent:
-├── Merge all branches
-├── Ensure hook calls API correctly
-├── Verify state syncs with server
-└── Run e2e tests
-```
-
-## Example: Investigation Clusters
-
-```
-Bug: Performance Regression
-
-Cluster 1: Backend Profiling
-└── Agent: Profile endpoints, identify slow queries
-
-Cluster 2: Frontend Analysis
-└── Agent: Bundle size, render performance, network waterfall
-
-Cluster 3: Database Analysis
-└── Agent: Query plans, index usage, connection pool
-
-Integration Agent:
-└── Synthesize findings, prioritize fixes, create action plan
-```
+**Library extraction:**
+> "I keep copying this theme toggle between sites. Extract it into a package. One agent builds the package, others update each site. Integrate when ready."
 
 ## When to Use
 
