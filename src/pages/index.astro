@@ -8,8 +8,9 @@ import Base from '../layouts/Base.astro';
     <h1>Work Forest</h1>
     <p class="tagline">A pattern for parallel AI-assisted development</p>
     <p class="hero-desc">
-      Enable multiple AI agents to work simultaneously on different parts of your codebase.
-      Using git worktrees and structured planning, parallelize development without conflicts.
+      Work across multiple repositories simultaneously. Split complex tasks into focused pieces.
+      Integrate scattered ideas. Extract shared patterns into libraries. All with AI agents
+      working in parallel, isolated worktrees.
     </p>
     <div class="hero-cta">
       <a href="/patterns/work-forest" class="btn btn-primary">Get Started</a>
@@ -19,42 +20,69 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <section class="problems">
+    <h2>Real Problems This Solves</h2>
+    <div class="problem-list">
+      <div class="problem">
+        <div class="problem-scenario">"This feature is getting out of hand..."</div>
+        <p>You started adding auth, now you're deep in database schemas, API routes, and React context all at once. <strong>Split it up.</strong> One agent handles the API, another the UI, a third the database. Work on each in isolation, integrate when ready.</p>
+      </div>
+      <div class="problem">
+        <div class="problem-scenario">"I keep copying this code between projects..."</div>
+        <p>Your three Astro sites all have the same theme toggle, the same nav component, the same patterns. <strong>Extract a library.</strong> One agent creates the package, others update each site to use it. Coordinated changes across repos.</p>
+      </div>
+      <div class="problem">
+        <div class="problem-scenario">"I have five half-finished ideas..."</div>
+        <p>Feature branches everywhere. Some work, some don't. Context is scattered. <strong>Consolidate with plans.</strong> Document what each branch does, what's blocking it, what depends on what. Pick up any thread without losing the others.</p>
+      </div>
+      <div class="problem">
+        <div class="problem-scenario">"The agent's context window filled up mid-task..."</div>
+        <p>You were making progress, then it forgot the earlier decisions. <strong>Plans survive resets.</strong> Decisions, rationale, and progress live in files. New sessions read the plan and continue where you left off.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="patterns">
     <h2>Patterns</h2>
     <div class="pattern-grid">
       <a href="/patterns/work-forest" class="pattern-card">
         <div class="pattern-icon">🌲</div>
         <h3>Work Forest</h3>
-        <p>The core parallel development pattern using git worktrees</p>
+        <p>Parallel worktrees across repos. See all in-flight work at a glance.</p>
       </a>
       <a href="/patterns/work-clusters" class="pattern-card">
         <div class="pattern-icon">⚡</div>
         <h3>Work Clusters</h3>
-        <p>Spawning multiple agents simultaneously on independent tasks</p>
+        <p>Semantic grouping. Split, isolate, integrate. Work at higher abstraction.</p>
       </a>
       <a href="/patterns/planning" class="pattern-card">
         <div class="pattern-icon">📋</div>
         <h3>Planning Documents</h3>
-        <p>Persistent plans that survive context resets across sessions</p>
+        <p>Persistent context. Decisions that survive session resets.</p>
       </a>
       <a href="/patterns/git-mechanics" class="pattern-card">
         <div class="pattern-icon">⚙️</div>
         <h3>Git Mechanics</h3>
-        <p>Underlying worktree and submodule operations</p>
+        <p>Worktrees, submodules, dirty state. The git primitives underneath.</p>
       </a>
     </div>
   </section>
 
   <section class="quick-start">
     <h2>Quick Start</h2>
-    <pre><code># Create a worktree for a feature
-git worktree add ../myproject-feature -b feature
+    <pre><code># You're working on site-a and site-b, both need the same component
 
-# Track in parent repo
-git submodule add ../myproject-feature ./myproject-feature
+# Create worktrees for the library and both sites
+git worktree add ../my-lib -b extract-component
+git worktree add ../site-a-update -b use-my-lib
+git worktree add ../site-b-update -b use-my-lib
 
-# Now multiple agents can work in parallel
-# Each in their own worktree, no conflicts</code></pre>
+# Agents work in parallel:
+# Agent 1: Extract component into my-lib
+# Agent 2: Update site-a imports
+# Agent 3: Update site-b imports
+
+# Integration agent merges and verifies everything works</code></pre>
   </section>
 </Base>
 
@@ -93,10 +121,10 @@ git submodule add ../myproject-feature ./myproject-feature
   }
 
   .hero-desc {
-    max-width: 36rem;
+    max-width: 38rem;
     margin: 0 auto 2rem;
     color: var(--fg-subtle);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .hero-cta {
@@ -137,6 +165,47 @@ git submodule add ../myproject-feature ./myproject-feature
   .btn-secondary:hover {
     color: var(--fg);
     border-color: var(--fg-subtle);
+  }
+
+  .problems {
+    padding: 2rem 0;
+  }
+
+  .problems h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .problem {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .problem-scenario {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--fg);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .problem p {
+    margin: 0;
+    color: var(--fg-muted);
+    line-height: 1.6;
+  }
+
+  .problem strong {
+    color: var(--accent);
   }
 
   .patterns {
