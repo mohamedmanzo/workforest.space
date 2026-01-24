@@ -5,7 +5,8 @@ import Base from '../layouts/Base.astro';
 <Base title="Work Forest">
   <section class="hero">
     <h1>Work Forest</h1>
-    <p class="tagline">Parallel AI-assisted development using git worktrees</p>
+    <p class="tagline">A pattern for parallel AI-assisted development</p>
+    <p class="note">Not a tool—just ideas you can use with git and any AI agent.</p>
   </section>
 
   <section class="idea">
@@ -23,6 +24,16 @@ project-bugfix/       # agent 3 works here</code></pre>
     <p>Split big tasks into semantic pieces. Just ask:</p>
     <blockquote>"Build auth. Backend, frontend, database. Work in parallel, then integrate."</blockquote>
     <p>Claude spawns sub-agents for each cluster, then merges everything.</p>
+  </section>
+
+  <section class="plans">
+    <h2>Planning Documents</h2>
+    <p>Plans live in files with unique IDs. Context survives session resets:</p>
+    <pre><code>plans/
+├── 3el7f-auth-refactor.md
+├── 9xk2m-api-redesign.md
+└── w7bn4-mobile-support.md</code></pre>
+    <p>The GUID prefix makes plans greppable across your entire workspace. New sessions read the plan file and continue where you left off.</p>
   </section>
 
   <section class="stacked">
@@ -58,6 +69,13 @@ project-bugfix/       # agent 3 works here</code></pre>
   .tagline {
     font-size: 1.1rem;
     color: var(--fg-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .note {
+    font-size: 0.9rem;
+    color: var(--fg-subtle);
+    font-style: italic;
   }
 
   section {
