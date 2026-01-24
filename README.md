@@ -1,43 +1,44 @@
-# Astro Starter Kit: Minimal
+# Work Forest
 
-```sh
-npm create astro@latest -- --template minimal
+Documentation site for AI-assisted development workflows at [workforest.space](https://workforest.space).
+
+## What This Is
+
+A pattern catalog for working effectively with Claude Code and similar AI coding assistants:
+- Git worktree workflows for parallel development
+- Project-level instructions (CLAUDE.md)
+- Skills and commands for common tasks
+- Context management strategies
+
+## Key Patterns
+
+### Git Submodules + npm link
+When developing libraries alongside consuming sites:
+1. Use git submodules to track library versions
+2. Use `npm link` for local development
+3. Commit submodule refs to lock versions
+4. See [npm-link pattern](/patterns/npm-link) for details
+
+### Projects Folder Structure
+Commit your `~/.claude/projects/` folder to version control:
+```
+~/.claude/projects/
+├── -Users-you-Projects-myapp/
+│   ├── CLAUDE.md          # Project instructions
+│   └── skills/            # Custom skills/commands
+└── ...
+```
+This preserves context across sessions and machines.
+
+## Development
+
+```bash
+npm install
+npm run dev     # localhost:4321
+npm run build   # production build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Related Projects
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [bearing.dev](https://bearing.dev) - Git worktree management tooling
+- [fightingwithai.com](https://fightingwithai.com) - AI engineering patterns

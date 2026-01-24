@@ -4,5 +4,122 @@ import Base from '../layouts/Base.astro';
 
 <Base title="Examples - Work Forest">
   <h1>Examples</h1>
-  <p>Coming soon: Real-world examples of Work Forest in action.</p>
+
+  <section>
+    <h2>Git Submodules + npm link</h2>
+    <p>When developing a library alongside sites that consume it:</p>
+
+    <h3>Setup</h3>
+    <pre><code># Add library as submodule
+git submodule add https://github.com/you/sailkit.git
+
+# Link for local development
+cd sailkit && npm link
+cd ../my-site && npm link sailkit</code></pre>
+
+    <h3>Committing Submodule Changes</h3>
+    <pre><code># After making changes in the submodule:
+cd sailkit
+git add . && git commit -m "Fix bug"
+git push
+
+# Then in the parent repo, commit the new ref:
+cd ..
+git add sailkit
+git commit -m "Update sailkit submodule"</code></pre>
+
+    <p>This locks the parent repo to a specific submodule commit. Other developers get the same version when they clone.</p>
+  </section>
+
+  <section>
+    <h2>Projects Folder Structure</h2>
+    <p>Claude Code stores project context in <code>~/.claude/projects/</code>. You can version control this:</p>
+
+    <pre><code>~/.claude/projects/
+├── -Users-you-Projects-myapp/
+│   ├── CLAUDE.md          # Project-specific instructions
+│   ├── skills/            # Custom slash commands
+│   │   └── deploy/
+│   │       └── SKILL.md
+│   └── settings.json
+└── -Users-you-Projects-another/
+    └── CLAUDE.md</code></pre>
+
+    <h3>Benefits</h3>
+    <ul>
+      <li>Context survives session resets</li>
+      <li>Sync instructions across machines</li>
+      <li>Share team conventions via git</li>
+      <li>Skills/commands are portable</li>
+    </ul>
+
+    <h3>Example CLAUDE.md</h3>
+    <pre><code># MyApp
+
+## Commands
+- /deploy - Deploy to production
+- /test - Run test suite
+
+## Conventions
+- Use TypeScript strict mode
+- Components in src/components/
+- Tests colocated with source</code></pre>
+  </section>
+
+  <section>
+    <h2>Creating Plans</h2>
+    <pre><code># Generate a unique plan ID
+PLAN_ID=$(head -c 4 /dev/urandom | xxd -p | head -c 5)
+touch "plans/${PLAN_ID}-my-feature.md"
+echo "# My Feature Plan" > "plans/${PLAN_ID}-my-feature.md"</code></pre>
+
+    <p>Plans are greppable by ID across your workspace. New Claude sessions can read and continue them.</p>
+  </section>
+
+  <section>
+    <h2>Worktree Management</h2>
+    <pre><code># Create a worktree for a feature
+git worktree add ../myapp-add-auth -b add-auth
+
+# Work in isolation
+cd ../myapp-add-auth
+# ... make changes ...
+
+# Clean up after merge
+git worktree remove ../myapp-add-auth</code></pre>
+
+    <p>See <a href="https://bearing.dev">bearing.dev</a> for tooling that helps manage worktrees at scale.</p>
+  </section>
 </Base>
+
+<style>
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  h3 {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+
+  p {
+    color: var(--fg-muted);
+    line-height: 1.6;
+  }
+
+  ul {
+    color: var(--fg-muted);
+    line-height: 1.8;
+    padding-left: 1.5rem;
+  }
+
+  pre {
+    margin: 1rem 0;
+  }
+</style>
