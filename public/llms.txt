@@ -1,0 +1,26 @@
+# Work Forest
+
+> A pattern for parallel AI-assisted development using git worktrees and file-based plans.
+
+## The Pattern
+
+- **Folder structure**: Base repos alongside feature worktrees in ~/projects/
+- **Planning documents**: Files with short unique IDs (e.g., 3el7f-feature.md)
+- **Work clusters**: Split large tasks into parallel semantic pieces
+- **Stacked PRs**: Clean commits for easier reviews
+
+## Key Points
+
+- Not a tool, just a workflow pattern
+- Works with any git-based project
+- Plans survive session resets
+- AI agents can spawn sub-agents for parallel work
+
+## Tooling
+
+- [Bearing](https://bearing.dev): Tooling that implements this pattern
+- [Examples](https://github.com/joshribakoff/workforest.space/tree/examples): Helper scripts in Bash, Python, Node, Go
+
+## Source
+
+- [GitHub](https://github.com/joshribakoff/workforest.space)
