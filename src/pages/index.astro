@@ -4,284 +4,108 @@ import Base from '../layouts/Base.astro';
 
 <Base title="Work Forest">
   <section class="hero">
-    <div class="hero-badge">Open Source Pattern</div>
     <h1>Work Forest</h1>
-    <p class="tagline">A pattern for parallel AI-assisted development</p>
-    <p class="hero-desc">
-      Work across multiple repositories simultaneously. Split complex tasks into focused pieces.
-      Integrate scattered ideas. Extract shared patterns into libraries. All with AI agents
-      working in parallel, isolated worktrees.
-    </p>
-    <div class="hero-cta">
-      <a href="/patterns/work-forest" class="btn btn-primary">Get Started</a>
-      <a href="https://github.com/joshribakoff/workforest.space" class="btn btn-secondary" target="_blank">
-        View on GitHub
-      </a>
-    </div>
+    <p class="tagline">Parallel AI-assisted development using git worktrees</p>
   </section>
 
-  <section class="problems">
-    <h2>Real Problems This Solves</h2>
-    <div class="problem-list">
-      <div class="problem">
-        <div class="problem-scenario">"This feature is getting out of hand..."</div>
-        <p>You started adding auth, now you're deep in database schemas, API routes, and React context all at once. <strong>Split it up.</strong> One agent handles the API, another the UI, a third the database. Work on each in isolation, integrate when ready.</p>
-      </div>
-      <div class="problem">
-        <div class="problem-scenario">"I keep copying this code between projects..."</div>
-        <p>Your three Astro sites all have the same theme toggle, the same nav component, the same patterns. <strong>Extract a library.</strong> One agent creates the package, others update each site to use it. Coordinated changes across repos.</p>
-      </div>
-      <div class="problem">
-        <div class="problem-scenario">"I have five half-finished ideas..."</div>
-        <p>Feature branches everywhere. Some work, some don't. Context is scattered. <strong>Consolidate with plans.</strong> Document what each branch does, what's blocking it, what depends on what. Pick up any thread without losing the others.</p>
-      </div>
-      <div class="problem">
-        <div class="problem-scenario">"The agent's context window filled up mid-task..."</div>
-        <p>You were making progress, then it forgot the earlier decisions. <strong>Plans survive resets.</strong> Decisions, rationale, and progress live in files. New sessions read the plan and continue where you left off.</p>
-      </div>
-    </div>
+  <section class="idea">
+    <h2>The Idea</h2>
+    <p>Instead of one agent working on one thing, create multiple worktrees and let agents work in parallel:</p>
+    <pre><code>project/              # main branch (read-only)
+project-feature-a/    # agent 1 works here
+project-feature-b/    # agent 2 works here
+project-bugfix/       # agent 3 works here</code></pre>
+    <p>Each worktree is isolated. No merge conflicts during development. Integrate when ready.</p>
   </section>
 
-  <section class="patterns">
-    <h2>Patterns</h2>
-    <div class="pattern-grid">
-      <a href="/patterns/work-forest" class="pattern-card">
-        <div class="pattern-icon">🌲</div>
-        <h3>Work Forest</h3>
-        <p>Parallel worktrees across repos. See all in-flight work at a glance.</p>
-      </a>
-      <a href="/patterns/work-clusters" class="pattern-card">
-        <div class="pattern-icon">⚡</div>
-        <h3>Work Clusters</h3>
-        <p>Semantic grouping. Split, isolate, integrate. Work at higher abstraction.</p>
-      </a>
-      <a href="/patterns/planning" class="pattern-card">
-        <div class="pattern-icon">📋</div>
-        <h3>Planning Documents</h3>
-        <p>Persistent context. Decisions that survive session resets.</p>
-      </a>
-      <a href="/patterns/git-mechanics" class="pattern-card">
-        <div class="pattern-icon">⚙️</div>
-        <h3>Git Mechanics</h3>
-        <p>Worktrees, submodules, dirty state. The git primitives underneath.</p>
-      </a>
-    </div>
+  <section class="clusters">
+    <h2>Work Clusters</h2>
+    <p>Split big tasks into semantic pieces. Just ask:</p>
+    <blockquote>"Build auth. Backend, frontend, database. Work in parallel, then integrate."</blockquote>
+    <p>Claude spawns sub-agents for each cluster, then merges everything.</p>
   </section>
 
-  <section class="quick-start">
-    <h2>Quick Start</h2>
-    <pre><code># You're working on site-a and site-b, both need the same component
+  <section class="stacked">
+    <h2>Stacked PRs</h2>
+    <p>Clean commits, easy reviews:</p>
+    <pre><code>main
+└── refactor-auth     # PR 1: cleanup only
+    └── add-oauth     # PR 2: feature on clean code</code></pre>
+    <p>The pattern handles the complexity. You work at the intent level.</p>
+  </section>
 
-# Create worktrees for the library and both sites
-git worktree add ../my-lib -b extract-component
-git worktree add ../site-a-update -b use-my-lib
-git worktree add ../site-b-update -b use-my-lib
+  <section class="tradeoffs">
+    <h2>Trade-offs</h2>
+    <p>This isn't magic. Parallel work means integration overhead. Some work may be redundant. You still decide how to split tasks. But you gain higher-level thinking and faster iteration.</p>
+  </section>
 
-# Agents work in parallel:
-# Agent 1: Extract component into my-lib
-# Agent 2: Update site-a imports
-# Agent 3: Update site-b imports
-
-# Integration agent merges and verifies everything works</code></pre>
+  <section class="cta">
+    <a href="https://github.com/joshribakoff/workforest.space" class="btn" target="_blank">View on GitHub</a>
   </section>
 </Base>
 
 <style>
   .hero {
     text-align: center;
-    padding: 4rem 0 3rem;
-  }
-
-  .hero-badge {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    background: var(--accent-subtle);
-    padding: 0.35rem 0.75rem;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
+    padding: 3rem 0 2rem;
   }
 
   .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--fg) 0%, var(--fg-muted) 50%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
   }
 
   .tagline {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--fg-muted);
-    margin-bottom: 1rem;
   }
 
-  .hero-desc {
-    max-width: 38rem;
-    margin: 0 auto 2rem;
-    color: var(--fg-subtle);
-    line-height: 1.7;
+  section {
+    padding: 1.5rem 0;
   }
 
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.15s ease;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: var(--bg);
-  }
-
-  .btn-primary:hover {
-    background: var(--fg);
-    color: var(--bg);
-  }
-
-  .btn-secondary {
-    background: var(--bg-elevated);
-    color: var(--fg-muted);
-    border: 1px solid var(--border);
-  }
-
-  .btn-secondary:hover {
-    color: var(--fg);
-    border-color: var(--fg-subtle);
-  }
-
-  .problems {
-    padding: 2rem 0;
-  }
-
-  .problems h2 {
+  h2 {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
   }
 
-  .problem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  p {
+    color: var(--fg-muted);
+    line-height: 1.6;
+    margin: 0 0 1rem;
   }
 
-  .problem {
-    padding: 1.25rem 1.5rem;
+  blockquote {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
     background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
     border-left: 3px solid var(--accent);
-  }
-
-  .problem-scenario {
-    font-size: 1.05rem;
-    font-weight: 500;
+    border-radius: 4px;
     color: var(--fg);
-    margin-bottom: 0.5rem;
     font-style: italic;
   }
 
-  .problem p {
-    margin: 0;
-    color: var(--fg-muted);
-    line-height: 1.6;
+  pre {
+    margin: 1rem 0;
   }
 
-  .problem strong {
-    color: var(--accent);
-  }
-
-  .patterns {
+  .cta {
+    text-align: center;
     padding: 2rem 0;
   }
 
-  .patterns h2 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-  }
-
-  .pattern-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .pattern-card {
-    display: block;
-    padding: 1.5rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
     text-decoration: none;
-    transition: all 0.2s ease;
+    border-radius: 6px;
+    font-weight: 600;
   }
 
-  .pattern-card:hover {
-    border-color: var(--border);
-    transform: translateY(-2px);
-  }
-
-  .pattern-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .pattern-card h3 {
-    font-size: 1.1rem;
-    color: var(--fg);
-    margin: 0 0 0.5rem;
-  }
-
-  .pattern-card p {
-    font-size: 0.9rem;
-    color: var(--fg-subtle);
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .quick-start {
-    padding: 2rem 0 0;
-  }
-
-  .quick-start h2 {
-    margin-top: 0;
-  }
-
-  @media (max-width: 640px) {
-    .hero h1 {
-      font-size: 2.5rem;
-    }
-
-    .pattern-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-cta {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .btn {
-      width: 100%;
-      max-width: 240px;
-      justify-content: center;
-    }
+  .btn:hover {
+    background: var(--fg);
   }
 </style>
